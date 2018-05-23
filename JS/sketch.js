@@ -1,5 +1,6 @@
 let player;
 let cnv;
+let laser;
 const bullets = [];
 
 function setup() {
@@ -9,6 +10,7 @@ function setup() {
   } else {
     cnv = createCanvas(windowWidth, windowWidth/1.5);
   }
+  laser = new Laser(createVector(player.x, player.y));
 }
 
 function draw() {
@@ -25,9 +27,12 @@ function draw() {
       bullets.splice(i, 1);
     }
   }
+  if (mouseIsPressed) {
+    laser.show();
+  }
 }
 
-function mousePressed() {
+function keyPressed() {
   bullets.push(new Bullet(createVector(player.x, player.y)));
 }
 

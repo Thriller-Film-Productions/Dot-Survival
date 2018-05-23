@@ -18,13 +18,10 @@ const Player = function() {
     noStroke();
     ellipse(pos.x, pos.y, this.r*width, this.r*width);
   }
-  this.shoot = () => {
-
-  }
 }
 
 const Bullet = function(origin) {
-  this.r = atan2(mouseY - getPos(player.x, player.y).y, mouseX - getPos(player.x, player.y).x);
+  this.r = Math.atan2(mouseY - getPos(player.x, player.y).y, mouseX - getPos(player.x, player.y).x);
   this.pos = origin;
   this.speed = 5;
   this.size = 1/128;
@@ -35,9 +32,30 @@ const Bullet = function(origin) {
     this.pos.x+=cos(this.r)*this.speed;
     this.pos.y+=sin(this.r)*this.speed;
     ellipse(pos.x, pos.y, this.size*width, this.size*width);
-    if (pos.x < 0 || pos.y < 0 || pos.x > width || pos.y > height) {
+    if (!collidePointRect(pos.x, pos.y, 0, 0, width, height)) {
       return "spliceMe";
     }
+  }
+}
+
+const Laser = function(origin) {
+  this.pos = origin;
+  this.show = () => {
+    noFill();
+    stroke(235);
+    strokeWeight(width/128);
+    let pos = getPos(this.pos.x, this.pos.y);
+    line(pos.x, pos.y, mouseX, mouseY);
+  }
+}
+
+const Enemy = function() {
+  this.x = 0;
+  this.y = round(random(0, 256));
+  this.w = 1/16;
+  this.show = function() {
+    rectMode(CENTER);
+    rect(this.x, this.y, width*this.w, width*this.w);
   }
 }
 
