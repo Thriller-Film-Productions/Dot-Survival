@@ -20,13 +20,15 @@ function draw() {
   line(0, 0, width, 0);
   line(0, height-2, width-2, height-2);
   line(width-2, 0, width-2, height-2);
-  for (let bullet of bullets) {
-    bullet.show();
+  for (i = bullets.length-1; i >= 0; i--) {
+    if (bullets[i].show()) {
+      bullets.splice(i, 1);
+    }
   }
 }
 
 function mousePressed() {
-  bullets.push(new Bullet(player.x, player.y));
+  bullets.push(new Bullet(createVector(player.x, player.y)));
 }
 
 function windowResized() {

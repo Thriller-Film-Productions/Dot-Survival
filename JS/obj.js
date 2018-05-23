@@ -23,16 +23,21 @@ const Player = function() {
   }
 }
 
-const bullet = (origin) => {
-  this.r = atan2(mouseY - height / 2, mouseX - width / 2);
+const Bullet = function(origin) {
+  this.r = atan2(mouseY - getPos(player.x, player.y).y, mouseX - getPos(player.x, player.y).x);
   this.pos = origin;
-  this.speed = 1;
-  this.size = 1/64;
+  this.speed = 5;
+  this.size = 1/128;
   this.show = function() {
-    let pos = getPos(pos.x, pos.y);
-    this.pos.x+=sin(this.speed);
-    this.pos.y+=cos(this.speed);
+    noStroke();
+    fill(235);
+    let pos = getPos(this.pos.x, this.pos.y);
+    this.pos.x+=cos(this.r)*this.speed;
+    this.pos.y+=sin(this.r)*this.speed;
     ellipse(pos.x, pos.y, this.size*width, this.size*width);
+    if (pos.x < 0 || pos.y < 0 || pos.x > width || pos.y > height) {
+      return "spliceMe";
+    }
   }
 }
 
