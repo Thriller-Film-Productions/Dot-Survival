@@ -1,7 +1,10 @@
 let player;
 let cnv;
 let laser;
+let interval;
+let rateMod = 240;
 const bullets = [];
+const enemies = [];
 
 function setup() {
   player = new Player();
@@ -14,6 +17,12 @@ function setup() {
 }
 
 function draw() {
+  if (frameCount % rateMod === 0) {
+    enemies.push(new Enemy());
+  }
+  if (frameCount % (60*15) === 0) {
+    rateMod*=0.9;
+  }
   background(51);
   player.show();
   stroke(235);
@@ -27,6 +36,11 @@ function draw() {
       bullets.splice(i, 1);
     }
   }
+  for (i = enemies.length-1; i >= 0; i--) {
+    if (enemies[i].show()) {
+      enemies.splice(i, 1);
+    }
+  }
   if (mouseIsPressed) {
     laser.show();
   }
@@ -34,6 +48,11 @@ function draw() {
 
 function keyPressed() {
   bullets.push(new Bullet(createVector(player.x, player.y)));
+  interval = setInterval(function() {bullets.push(new Bullet(createVector(player.x, player.y)))}, 200);
+}
+
+function keyReleased() {
+  clearInterval(interval);
 }
 
 function windowResized() {

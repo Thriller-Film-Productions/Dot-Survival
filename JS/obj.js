@@ -53,9 +53,15 @@ const Enemy = function() {
   this.x = 0;
   this.y = round(random(0, 256));
   this.w = 1/16;
+  this.speed = 0.125;
   this.show = function() {
+    let pos = getPos(this.x, this.y);
+    let r = Math.atan2(getPos(player.x, player.y).y - pos.y, getPos(player.x, player.y).x - pos.x);
     rectMode(CENTER);
-    rect(this.x, this.y, width*this.w, width*this.w);
+    fill(235);
+    rect(pos.x, pos.y, width*this.w, width*this.w);
+    this.x+=cos(r)*this.speed;
+    this.y+=sin(r)*this.speed;
   }
 }
 
