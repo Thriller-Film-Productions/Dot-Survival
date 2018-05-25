@@ -84,6 +84,21 @@ const Enemy = function () {
   }
 }
 
+const Grenade = function() {
+  this.x = 230;
+  this.y = 128;
+  let pos = getModelPos(mouseX, mouseY);
+  this.finalX = pos.x;
+  this.finalY = pos.y;
+  this.size = 1/64;
+  this.show = () => {
+    this.x = lerp(this.x, this.finalX, 0.1);
+    this.y = lerp(this.y, this.finalY, 0.1);
+    let pos = getPos(this.x, this.y)
+    ellipse(pos.x, pos.y, width*this.size, width*this.size);
+  }
+}
+
 function getPos(x, y) {
   return createVector(x / 256 * width, y / 256 * height);
 }

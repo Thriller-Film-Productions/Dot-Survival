@@ -5,6 +5,7 @@ let interval;
 let rateMod = 240;
 const bullets = [];
 const enemies = [];
+const grenades = [];
 
 function setup() {
   player = new Player();
@@ -48,6 +49,11 @@ function draw() {
       }
     }
   }
+  for (i = grenades.length - 1; i >= 0; i--) {
+    if (grenades[i].show()) {
+      grenades.splice(i, 1);
+    }
+  }
   if (mouseIsPressed && ammo.energy > 0) {
     laser.lasering = true;
     laser.show();
@@ -69,18 +75,22 @@ setInterval(function() {
 }, 125);
 
 function keyPressed() {
-  if (ammo.ammo > 0) {
-    bullets.push(new Bullet(createVector(player.x, player.y)));
-    ammo.energy+=3;
-    ammo.ammo--;
-  }
-  interval = setInterval(function () {
+  if (keyCode == 32) {
     if (ammo.ammo > 0) {
-      ammo.ammo--;
-      ammo.energy+=3;
       bullets.push(new Bullet(createVector(player.x, player.y)));
+      ammo.energy+=3;
+      ammo.ammo--;
     }
-  }, 200);
+    interval = setInterval(function () {
+      if (ammo.ammo > 0) {
+        ammo.ammo--;
+        ammo.energy+=3;
+        bullets.push(new Bullet(createVector(player.x, player.y)));
+      }
+    }, 200);
+  } else if (keyCode == 81) {
+    grenades.push(new Grenade());
+  }
 }
 
 function keyReleased() {
