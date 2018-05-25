@@ -42,9 +42,10 @@ const Bullet = function (origin) {
 
 const Laser = function (origin) {
   this.pos = origin;
+  this.lasering;
   this.show = () => {
     noFill();
-    stroke(235);
+    stroke("#ffa0a0");
     strokeWeight(width / 128);
     let pos = getPos(this.pos.x, this.pos.y);
     line(pos.x, pos.y, mouseX, mouseY);
@@ -65,7 +66,10 @@ const Enemy = function () {
     rect(pos.x, pos.y, width * this.w, width * this.w);
     this.x += cos(r) * this.speed;
     this.y += sin(r) * this.speed;
-    if (health <= 0) {
+    if (laser.lasering && collidePointRect(mouseX, mouseY, pos.x, pos.y, width * this.w, width * this.w)) {
+      this.health-=1;
+    }
+    if (this.health <= 0) {
       return "spliceMe"
     }
   }

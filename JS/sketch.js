@@ -38,16 +38,21 @@ function draw() {
   }
   for (i = enemies.length - 1; i >= 0; i--) {
     if (enemies[i].show()) {
+      ammo.ammo+=floor(random(0, 3));
       enemies.splice(i, 1);
     }
   }
   if (mouseIsPressed && ammo.energy > 0) {
+    laser.lasering = true;
     laser.show();
     ammo.energy--;
+  } else {
+    laser.lasering = false;
   }
   noStroke();
   fill(235);
   text("Energy: " + ammo.energy, 10, 20);
+  text("Ammo: " + ammo.ammo, 10, 40);
 }
 
 setInterval(function() {
@@ -55,9 +60,15 @@ setInterval(function() {
 }, 125);
 
 function keyPressed() {
-  bullets.push(new Bullet(createVector(player.x, player.y)));
+  if (ammo.ammo > 0) {
+    bullets.push(new Bullet(createVector(player.x, player.y)));
+    ammo.ammo--;
+  }
   interval = setInterval(function () {
-    bullets.push(new Bullet(createVector(player.x, player.y)))
+    if (ammo.ammo > 0) {
+      ammo.ammo--;
+      bullets.push(new Bullet(createVector(player.x, player.y)));
+    }
   }, 200);
 }
 
