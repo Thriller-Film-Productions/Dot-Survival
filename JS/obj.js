@@ -96,6 +96,9 @@ const Grenade = function() {
     this.y = lerp(this.y, this.finalY, 0.1);
     let pos = getPos(this.x, this.y)
     ellipse(pos.x, pos.y, width*this.size, width*this.size);
+    if (round(this.x/5)*5 == round(this.finalX/5)*5 && round(this.y/5)*5 == round(this.finalY/5)*5) {
+      return "spliceMe";
+    }
   }
 }
 
