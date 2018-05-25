@@ -42,6 +42,9 @@ function draw() {
       enemies.splice(i, 1);
       if (floor(random(0, 16)) == 0) {
         ammo.grenades++;
+        if (floor(random(0, 16)) == 15) {
+          ammo.nukes++;
+        }
       }
     }
   }
@@ -57,6 +60,7 @@ function draw() {
   text("Energy: " + ammo.energy, 10, 20);
   text("Ammo: " + ammo.ammo, 10, 40);
   text("Grenades: " + ammo.grenades, 10, 60);
+  text("Nukes: " + ammo.grenades, 10, 80);
   player.show();
 }
 
