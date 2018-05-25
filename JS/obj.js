@@ -38,8 +38,10 @@ const Bullet = function (origin) {
       return "spliceMe";
     }
     for (let enemy of enemies) {
-      if (collidePointRect(this.pos.x, this.pos.y, enemy.x, enemy.y, width * enemy.w, width * enemy.w)) {
-        enemy.health -= 6;
+      let thisPos = getPos(this.pos.x, this.pos.y);
+      let enPos = getPos(enemy.x, enemy.y);
+      if (collidePointRect(thisPos.x, thisPos.y, enPos.x, enPos.y, width * enemy.w, width * enemy.w)) {
+        enemy.health -= 8;
         return "spliceMe";
       }
     }
