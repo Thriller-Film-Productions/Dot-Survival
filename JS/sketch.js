@@ -63,11 +63,13 @@ setInterval(function() {
 function keyPressed() {
   if (ammo.ammo > 0) {
     bullets.push(new Bullet(createVector(player.x, player.y)));
+    ammo.energy+=3;
     ammo.ammo--;
   }
   interval = setInterval(function () {
     if (ammo.ammo > 0) {
       ammo.ammo--;
+      ammo.energy+=3;
       bullets.push(new Bullet(createVector(player.x, player.y)));
     }
   }, 200);

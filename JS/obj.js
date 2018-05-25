@@ -40,7 +40,8 @@ const Bullet = function (origin) {
     for (let enemy of enemies) {
       let thisPos = getPos(this.pos.x, this.pos.y);
       let enPos = getPos(enemy.x, enemy.y);
-      if (collidePointRect(thisPos.x, thisPos.y, enPos.x, enPos.y, width * enemy.w, width * enemy.w)) {
+      rectMode(CENTER);
+      if (collidePointRect(thisPos.x, thisPos.y, enPos.x, enPos.y-(width * enemy.w)/2, width * enemy.w, width * enemy.w)) {
         enemy.health -= 8;
         return "spliceMe";
       }
