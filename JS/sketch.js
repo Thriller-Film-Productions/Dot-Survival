@@ -40,6 +40,9 @@ function draw() {
     if (enemies[i].show()) {
       ammo.ammo+=floor(random(0, 3));
       enemies.splice(i, 1);
+      if (floor(random(0, 16)) == 0) {
+        ammo.grenades++;
+      }
     }
   }
   if (mouseIsPressed && ammo.energy > 0) {
@@ -53,6 +56,7 @@ function draw() {
   fill(235);
   text("Energy: " + ammo.energy, 10, 20);
   text("Ammo: " + ammo.ammo, 10, 40);
+  text("Grenades: " + ammo.grenades, 10, 60);
   player.show();
 }
 

@@ -76,7 +76,7 @@ const Enemy = function () {
     this.x += cos(r) * this.speed;
     this.y += sin(r) * this.speed;
     if (laser.lasering && collidePointRect(mouseX, mouseY, pos.x-(width * this.w)/2, pos.y-(width * this.w)/2, width * this.w, width * this.w)) {
-      this.health-=1;
+      this.health-=0.5;
     }
     if (this.health <= 0) {
       return "spliceMe"
