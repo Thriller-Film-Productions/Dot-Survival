@@ -37,6 +37,12 @@ const Bullet = function (origin) {
     if (!collidePointRect(pos.x, pos.y, 0, 0, width, height)) {
       return "spliceMe";
     }
+    for (let enemy of enemies) {
+      if (collidePointRect(this.pos.x, this.pos.y, enemy.x, enemy.y, width * enemy.w, width * enemy.w)) {
+        enemy.health -= 6;
+        return "spliceMe";
+      }
+    }
   }
 }
 

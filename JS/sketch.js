@@ -22,9 +22,9 @@ function draw() {
   }
   if (frameCount % (60 * 15) === 0) {
     rateMod *= 0.9;
+    rateMod = ceil(rateMod);
   }
   background(51);
-  player.show();
   stroke(235);
   strokeWeight(3);
   line(0, 0, 0, height);
@@ -53,6 +53,7 @@ function draw() {
   fill(235);
   text("Energy: " + ammo.energy, 10, 20);
   text("Ammo: " + ammo.ammo, 10, 40);
+  player.show();
 }
 
 setInterval(function() {
