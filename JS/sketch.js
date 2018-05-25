@@ -41,13 +41,18 @@ function draw() {
       enemies.splice(i, 1);
     }
   }
-  if (mouseIsPressed) {
+  if (mouseIsPressed && ammo.energy > 0) {
     laser.show();
+    ammo.energy--;
   }
   noStroke();
   fill(235);
-  text("Energy: " + ammo.energy, 10, 10);
+  text("Energy: " + ammo.energy, 10, 20);
 }
+
+setInterval(function() {
+  ammo.energy++;
+}, 125);
 
 function keyPressed() {
   bullets.push(new Bullet(createVector(player.x, player.y)));
