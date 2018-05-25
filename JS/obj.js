@@ -75,7 +75,7 @@ const Enemy = function () {
     rect(pos.x, pos.y, width * this.w, width * this.w);
     this.x += cos(r) * this.speed;
     this.y += sin(r) * this.speed;
-    if (laser.lasering && collidePointRect(mouseX, mouseY, pos.x, pos.y, width * this.w, width * this.w)) {
+    if (laser.lasering && collidePointRect(mouseX, mouseY, pos.x-(width * this.w)/2, pos.y-(width * this.w)/2, width * this.w, width * this.w)) {
       this.health-=1;
     }
     if (this.health <= 0) {
