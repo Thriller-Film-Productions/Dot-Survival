@@ -83,8 +83,12 @@ const Enemy = function () {
     }
   }
   this.testDead = (x, y, r) => {
-    let pos = getPos(x, y);
-    if (collideRectCircle(pos.x-(width * this.w)/2, pos.y-(width * this.w)/2, width * this.w, width * this.w, pos.x, pos.y, r, r)) {
+    let pos = getPos(this.x, this.y);
+    let grenPos = getPos(x, y);
+    fill(255, 256, 150, 128);
+    noStroke();
+    ellipse(grenPos.x, grenPos.y, r, r);
+    if (collideRectCircle(pos.x-(width * this.w)/2, pos.y-(width * this.w)/2, width * this.w, width * this.w, grenPos.x, grenPos.y, r, r)) {
       return "spliceMe";
     }
   }

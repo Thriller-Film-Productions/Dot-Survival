@@ -25,7 +25,7 @@ function draw() {
     rateMod *= 0.9;
     rateMod = ceil(rateMod);
   }
-  background(51);
+  background(51, 128);
   stroke(235);
   strokeWeight(3);
   line(0, 0, 0, height);
@@ -52,7 +52,8 @@ function draw() {
   for (i = grenades.length - 1; i >= 0; i--) {
     if (grenades[i].show()) {
       for (j = enemies.length - 1; j >= 0; j--) {
-        if (enemies[j].testDead(grenades[i].finalX, grenades[i].finalY, width/8)) {
+        let a = enemies[j].testDead(grenades[i].finalX, grenades[i].finalY, width/4);
+        if (a) {
           ammo.ammo+=floor(random(0, 3));
           enemies.splice(j, 1);
         }
