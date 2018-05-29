@@ -79,7 +79,13 @@ const Enemy = function () {
       this.health-=0.5;
     }
     if (this.health <= 0) {
-      return "spliceMe"
+      return "spliceMe";
+    }
+  }
+  this.testDead = (x, y, r) => {
+    let pos = getPos(x, y);
+    if (collideRectCircle(pos.x-(width * this.w)/2, pos.y-(width * this.w)/2, width * this.w, width * this.w, pos.x, pos.y, r, r)) {
+      return "spliceMe";
     }
   }
 }
@@ -94,7 +100,7 @@ const Grenade = function() {
   this.show = () => {
     this.x = lerp(this.x, this.finalX, 0.1);
     this.y = lerp(this.y, this.finalY, 0.1);
-    let pos = getPos(this.x, this.y)
+    let pos = getPos(this.x, this.y);
     ellipse(pos.x, pos.y, width*this.size, width*this.size);
     if (round(this.x/5)*5 == round(this.finalX/5)*5 && round(this.y/5)*5 == round(this.finalY/5)*5) {
       return "spliceMe";

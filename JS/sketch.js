@@ -39,18 +39,24 @@ function draw() {
   }
   for (i = enemies.length - 1; i >= 0; i--) {
     if (enemies[i].show()) {
-      ammo.ammo+=floor(random(0, 3));
+      ammo.ammo+=random([0, 1, 2]);
       enemies.splice(i, 1);
       if (floor(random(0, 16)) == 0) {
         ammo.grenades++;
-        if (floor(random(0, 16)) == 15) {
-          ammo.nukes++;
-        }
+      }
+      if (floor(random(0, 256)) == 15) {
+        ammo.nukes++;
       }
     }
   }
   for (i = grenades.length - 1; i >= 0; i--) {
     if (grenades[i].show()) {
+      for (j = enemies.length - 1; j >= 0; j--) {
+        if (enemies[j].testDead(grenades[i].finalX, grenades[i].finalY, width/8)) {
+          ammo.ammo+=floor(random(0, 3));
+          enemies.splice(j, 1);
+        }
+      }
       grenades.splice(i, 1);
     }
   }
@@ -66,7 +72,7 @@ function draw() {
   text("Energy: " + ammo.energy, 10, 20);
   text("Ammo: " + ammo.ammo, 10, 40);
   text("Grenades: " + ammo.grenades, 10, 60);
-  text("Nukes: " + ammo.grenades, 10, 80);
+  text("Nukes: " + ammo.nukes, 10, 80);
   player.show();
 }
 
