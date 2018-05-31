@@ -3,6 +3,8 @@ let cnv;
 let laser;
 let interval;
 let rateMod = 240;
+let fallout = 0;
+let nuke;
 const bullets = [];
 const enemies = [];
 const grenades = [];
@@ -32,6 +34,9 @@ function draw() {
   line(0, 0, width, 0);
   line(0, height - 2, width - 2, height - 2);
   line(width - 2, 0, width - 2, height - 2);
+  if (fallout > 0) {
+    fallout-=0.01
+  }
   for (i = bullets.length - 1; i >= 0; i--) {
     if (bullets[i].show()) {
       bullets.splice(i, 1);
@@ -44,7 +49,7 @@ function draw() {
       if (floor(random(0, 16)) == 0) {
         ammo.grenades++;
       }
-      if (floor(random(0, 256)) == 15) {
+      if (floor(random(0, 512)) == 15) {
         ammo.nukes++;
       }
     }
@@ -68,13 +73,16 @@ function draw() {
   } else {
     laser.lasering = false;
   }
+  player.show();
+  if (nuke) {
+    nuke.show();
+  }
   noStroke();
-  fill(235);
+  fill(150, 255, 150);
   text("Energy: " + ammo.energy, 10, 20);
   text("Ammo: " + ammo.ammo, 10, 40);
   text("Grenades: " + ammo.grenades, 10, 60);
   text("Nukes: " + ammo.nukes, 10, 80);
-  player.show();
 }
 
 setInterval(function() {
@@ -95,8 +103,11 @@ function keyPressed() {
         bullets.push(new Bullet(createVector(player.x, player.y)));
       }
     }, 200);
-  } else if (keyCode == 81) {
+  } else if (keyCode == 81 && ammo.grenades > 0) {
     grenades.push(new Grenade());
+    ammo.grenades--;
+  } else if (keyCode == 87) {
+    nuke = new Nuke();
   }
 }
 

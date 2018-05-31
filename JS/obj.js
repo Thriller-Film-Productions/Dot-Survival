@@ -112,6 +112,19 @@ const Grenade = function() {
   }
 }
 
+const Nuke = function() {
+  this.x = 128;
+  this.y = 0;
+  this.show = () => {
+    if (this.x == 128 && !this.y == 128) {
+      let pos = getPos(this.x, this.y);
+      fill(235);
+      ellipse(pos.x, pos.y, width/8, width/4);
+      this.y+=8;
+    }
+  }
+}
+
 function getPos(x, y) {
   return createVector(x / 256 * width, y / 256 * height);
 }
