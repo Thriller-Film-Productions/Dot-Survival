@@ -5,6 +5,8 @@ let interval;
 let rateMod = 240;
 let fallout = 0;
 let nuke;
+let over = false;
+const particles = [];
 const bullets = [];
 const enemies = [];
 const grenades = [];
@@ -20,12 +22,16 @@ function setup() {
 }
 
 function draw() {
+  frameRate(60);
   if (frameCount % rateMod === 0) {
     enemies.push(new Enemy());
   }
   if (frameCount % (60 * 15) === 0) {
     rateMod *= 0.9;
     rateMod = ceil(rateMod);
+  }
+  while (particles.length < fallout * 100) {
+    particles.push(new Fallout());
   }
   background(51, 128);
   stroke(235);
@@ -35,7 +41,9 @@ function draw() {
   line(0, height - 2, width - 2, height - 2);
   line(width - 2, 0, width - 2, height - 2);
   if (fallout > 0) {
-    fallout-=0.01
+    fallout -= 0.0001;
+  } else {
+    fallout = 0;
   }
   for (i = bullets.length - 1; i >= 0; i--) {
     if (bullets[i].show()) {
@@ -44,7 +52,7 @@ function draw() {
   }
   for (i = enemies.length - 1; i >= 0; i--) {
     if (enemies[i].show()) {
-      ammo.ammo+=random([0, 1, 2]);
+      ammo.ammo += random([0, 1, 2]);
       enemies.splice(i, 1);
       if (floor(random(0, 16)) == 0) {
         ammo.grenades++;
@@ -57,9 +65,9 @@ function draw() {
   for (i = grenades.length - 1; i >= 0; i--) {
     if (grenades[i].show()) {
       for (j = enemies.length - 1; j >= 0; j--) {
-        let a = enemies[j].testDead(grenades[i].finalX, grenades[i].finalY, width/4);
+        let a = enemies[j].testDead(grenades[i].finalX, grenades[i].finalY, width / 4);
         if (a) {
-          ammo.ammo+=floor(random(0, 3));
+          ammo.ammo += floor(random(0, 3));
           enemies.splice(j, 1);
         }
       }
@@ -74,8 +82,13 @@ function draw() {
     laser.lasering = false;
   }
   player.show();
-  if (nuke) {
+  if (nuke != undefined) {
     nuke.show();
+  }
+  for (let i = particles.length - 1; i >= 0; i--) {
+    if (particles[i].show()) {
+      particles.splice(i, 1);
+    }
   }
   noStroke();
   fill(150, 255, 150);
@@ -83,9 +96,12 @@ function draw() {
   text("Ammo: " + ammo.ammo, 10, 40);
   text("Grenades: " + ammo.grenades, 10, 60);
   text("Nukes: " + ammo.nukes, 10, 80);
+  if (over) {
+    gameOver();
+  }
 }
 
-setInterval(function() {
+setInterval(function () {
   ammo.energy++;
 }, 125);
 
@@ -93,21 +109,22 @@ function keyPressed() {
   if (keyCode == 32) {
     if (ammo.ammo > 0) {
       bullets.push(new Bullet(createVector(player.x, player.y)));
-      ammo.energy+=3;
+      ammo.energy += 3;
       ammo.ammo--;
     }
     interval = setInterval(function () {
       if (ammo.ammo > 0) {
         ammo.ammo--;
-        ammo.energy+=3;
+        ammo.energy += 3;
         bullets.push(new Bullet(createVector(player.x, player.y)));
       }
     }, 200);
   } else if (keyCode == 81 && ammo.grenades > 0) {
     grenades.push(new Grenade());
     ammo.grenades--;
-  } else if (keyCode == 87) {
+  } else if (keyCode == 87 && nukes > 0) {
     nuke = new Nuke();
+    ammo.nukes--;
   }
 }
 
@@ -121,4 +138,21 @@ function windowResized() {
   } else {
     resizeCanvas(windowWidth, windowWidth / 1.5);
   }
+}
+
+function enableCheats() {
+  ammo.ammo = Infinity;
+  ammo.energy = Infinity;
+  ammo.grenades = Infinity;
+  ammo.nukes = Infinity;
+}
+
+function gameOver() {
+  noLoop();
+  background(51);
+  noStroke();
+  fill(235);
+  textAlign(CENTER, CENTER);
+  textSize(width / (45 / 4));
+  text("GAME OVER", width / 2, height / 2);
 }
