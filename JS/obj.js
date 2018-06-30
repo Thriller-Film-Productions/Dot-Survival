@@ -92,6 +92,7 @@ const Enemy = function () {
       this.health -= 0.5;
     }
     if (this.health <= 0) {
+      sounds.ExplosionSmall.play();
       return "spliceMe";
     }
   }
@@ -120,6 +121,7 @@ const Grenade = function () {
       fill(255, 255, 150);
       noStroke();
       ellipse(pos.x, pos.y, width / 4, width / 4);
+      sounds.Grenade.play();
       return "spliceMe";
     }
   }
@@ -145,6 +147,7 @@ const Nuke = function () {
       this.a -= 1;
       if (this.pExploded == false) {
         this.noise.stop();
+        sounds.Nuke.play();
         enemies.splice(0, enemies.length);
         fallout++;
       }
