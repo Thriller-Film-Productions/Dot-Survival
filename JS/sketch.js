@@ -54,7 +54,7 @@ function draw() {
     if (enemies[i].show()) {
       ammo.ammo += random([0, 1, 2]);
       enemies.splice(i, 1);
-      if (floor(random(0, 16)) == 0) {
+      if (floor(random(0, 64)) == 0) {
         ammo.grenades++;
       }
       if (floor(random(0, 512)) == 15) {
