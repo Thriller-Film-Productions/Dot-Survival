@@ -10,6 +10,7 @@ const particles = [];
 const bullets = [];
 const enemies = [];
 const grenades = [];
+const sounds = {}
 
 function setup() {
   player = new Player();
@@ -19,6 +20,9 @@ function setup() {
     cnv = createCanvas(windowWidth, windowWidth / 1.5);
   }
   laser = new Laser(createVector(player.x, player.y));
+  sounds.ExplosionSmall = loadSound("assets/explosion small.ogg");
+  sounds.Grenade = loadSound("assets/grenade.ogg");
+  sounds.Nuke = loadSound("assets/nuke.ogg");
 }
 
 function draw() {
