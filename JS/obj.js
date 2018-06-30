@@ -85,10 +85,9 @@ const Enemy = function () {
     if (laser.lasering && collidePointRect(mouseX, mouseY, pos.x - (width * this.w) / 2, pos.y - (width * this.w) / 2, width * this.w, width * this.w)) {
       this.health -= 0.5;
     }
-    if (collideRectCircle(pos.x, pos.y, width * this.w, width * this.w, ))
-      if (this.health <= 0) {
-        return "spliceMe";
-      }
+    if (this.health <= 0) {
+      return "spliceMe";
+    }
   }
   this.testDead = (x, y, r) => {
     let pos = getPos(this.x, this.y);
