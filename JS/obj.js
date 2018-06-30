@@ -79,7 +79,7 @@ const Enemy = function () {
     let ppos = player.getPos(player.x, player.y);
     this.x += cos(r) * this.speed;
     this.y += sin(r) * this.speed;
-    if (collideRectCircle(pos.x, pos.y, width * this.w, width * this.w, ppos.x, ppos.y + (width / 32), player.r * width, player.r * width)) {
+    if (collideRectCircle(pos.x, pos.y, width * this.w, width * this.w, ppos.x, ppos.y + (width / 32), player.r * width, player.r * width) && ammo.ammo != Infinity) {
       over = true;
     }
     if (laser.lasering && collidePointRect(mouseX, mouseY, pos.x - (width * this.w) / 2, pos.y - (width * this.w) / 2, width * this.w, width * this.w)) {
