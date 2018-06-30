@@ -75,11 +75,17 @@ function draw() {
     }
   }
   if (mouseIsPressed && ammo.energy > 0) {
+    laser.plasering = laser.lasering;
     laser.lasering = true;
     laser.show();
     ammo.energy--;
   } else {
+    laser.osc.stop();
+    laser.plasering = laser.lasering;
     laser.lasering = false;
+  }
+  if (laser.lasering == true && laser.plasering == false) {
+    laser.osc.start();
   }
   player.show();
   if (nuke != undefined) {
