@@ -27,6 +27,11 @@ const Bullet = function (origin) {
   this.dx = getModelPos(mouseX, mouseY).x - this.pos.x;
   this.dy = getModelPos(mouseX, mouseY).y - this.pos.y;
   this.r = ds = Math.hypot(this.dx, this.dy);
+  this.osc = new p5.TriOsc(660);
+  this.osc.start();
+  setTimeout((bullet) => {
+    bullet.osc.stop();
+  }, 50, this);
   this.show = function () {
     noStroke();
     fill(235);
