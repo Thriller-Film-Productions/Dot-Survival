@@ -52,6 +52,7 @@ const Bullet = function (origin) {
 const Laser = function (origin) {
   this.pos = origin;
   this.lasering;
+  this.osc = new p5.Oscillator(220, "sawtooth");
   this.show = () => {
     noFill();
     stroke("#ffa0a0");
@@ -124,18 +125,21 @@ const Nuke = function () {
   this.y = 0;
   this.a = 255;
   this.pExploded = false;
+  this.noise = new p5.Noise("brown");
+  this.noise.start();
   this.show = () => {
     fill(235);
     if (this.y < 128) {
       let pos = getPos(this.x, this.y);
       ellipse(pos.x, pos.y, width / 16, width / 8);
-      this.y += 8;
+      this.y += 1;
     } else {
       rectMode(CORNER);
       fill(235, 235, 150, this.a);
       rect(0, 0, width, height);
       this.a -= 1;
       if (this.pExploded == false) {
+        this.noise.stop();
         enemies.splice(0, enemies.length);
         fallout++;
       }
