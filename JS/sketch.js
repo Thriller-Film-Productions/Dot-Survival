@@ -122,7 +122,7 @@ function keyPressed() {
   } else if (keyCode == 81 && ammo.grenades > 0) {
     grenades.push(new Grenade());
     ammo.grenades--;
-  } else if (keyCode == 87 && nukes > 0) {
+  } else if (keyCode == 87 && ammo.nukes > 0) {
     nuke = new Nuke();
     ammo.nukes--;
   }
