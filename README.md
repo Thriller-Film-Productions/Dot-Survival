@@ -1,6 +1,6 @@
 # Dot Survival
 ## What is is
-This is a game where you try to survive as long as possible before the circles touch the square.
+This is a game where you try to survive as long as possible before the squares touch the circle.
 ## Controls
 Move mouse to aim
 
