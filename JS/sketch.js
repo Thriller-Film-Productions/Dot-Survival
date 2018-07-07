@@ -20,9 +20,9 @@ function setup() {
     cnv = createCanvas(windowWidth, windowWidth / 1.5);
   }
   laser = new Laser(createVector(player.x, player.y));
-  sounds.ExplosionSmall = loadSound("assets/explosion small.ogg");
-  sounds.Grenade = loadSound("assets/grenade.ogg");
-  sounds.Nuke = loadSound("assets/nuke.ogg");
+  sounds.ExplosionSmall = loadSound("Assets/explosion small.ogg");
+  sounds.Grenade = loadSound("Assets/grenade.ogg");
+  sounds.Nuke = loadSound("Assets/nuke.ogg");
 }
 
 function draw() {
