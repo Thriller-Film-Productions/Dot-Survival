@@ -45,7 +45,7 @@ function draw() {
   line(0, height - 2, width - 2, height - 2);
   line(width - 2, 0, width - 2, height - 2);
   if (fallout > 0) {
-    fallout -= 0.0001;
+    fallout -= 0.0002;
   } else {
     fallout = 0;
   }
